@@ -88,7 +88,7 @@ void panic(const char *fmt, ...)
 	pr_info("%s: rere = 0x%08x\n", __func__, fih_rere_rd_imem());
 	/* FIH, to support fih apr } */
 
-	trace_kernel_panic(0);
+	// trace_kernel_panic(0);
 
 	/*
 	 * Disable local interrupts. This will prevent panic_smp_self_stop
@@ -194,7 +194,7 @@ void panic(const char *fmt, ...)
 		}
 	}
 
-	trace_kernel_panic_late(0);
+//	trace_kernel_panic_late(0);
 
 	if (panic_timeout != 0) {
 		/*
