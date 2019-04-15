@@ -255,8 +255,8 @@ static int audio_open(struct inode *inode, struct file *file)
 	/* 4 bytes represents decoder number, 1 byte for terminate string */
 	char name[sizeof "msm_ape_" + 5];
 #endif
-	audio = kzalloc(sizeof(struct q6audio_aio), GFP_KERNEL);
 
+	audio = kzalloc(sizeof(struct q6audio_aio), GFP_KERNEL);
 	if (!audio) {
 		pr_err("Could not allocate memory for ape decode driver\n");
 		return -ENOMEM;
@@ -325,10 +325,11 @@ static int audio_open(struct inode *inode, struct file *file)
 
 	if (IS_ERR_OR_NULL(audio->dentry))
 		pr_debug("debugfs_create_file failed\n");
+#endif
+
 	pr_debug("%s:apedec success mode[%d]session[%d]\n", __func__,
 						audio->feedback,
 						audio->ac->session);
-#endif
 	return rc;
 fail:
 	q6asm_audio_client_free(audio->ac);
