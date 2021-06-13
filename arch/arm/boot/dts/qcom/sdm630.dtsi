@@ -1188,31 +1188,6 @@
 			< 2380800 5163 >;
 	};
 
-	devfreq_memlat_4: qcom,arm-memlat-mon-4 {
-		compatible = "qcom,arm-memlat-mon";
-		qcom,cpulist = <&CPU4 &CPU5 &CPU6 &CPU7>;
-		qcom,target-dev = <&memlat_cpu4>;
-		qcom,core-dev-table =
-			< 614400 762 >,
-			< 1536000 2929 >,
-			< 1728000 3879 >;
-	};
-
-	devfreq_cpufreq: devfreq-cpufreq {
-		mincpubw-cpufreq {
-			target-dev = <&mincpubw>;
-			cpu-to-dev-map-0 =
-				< 787200 762 >,
-				< 1344000 1571 >,
-				< 1881600 2929 >,
-				< 2380800 3879 >;
-			cpu-to-dev-map-4 =
-				< 614400 762 >,
-				< 1536000 1571 >,
-				< 1728000 3879 >;
-		};
-	};
-
 	msm_cpufreq: qcom,msm-cpufreq {
 		compatible = "qcom,msm-cpufreq";
 		clock-names = "cpu0_clk", "cpu4_clk";
