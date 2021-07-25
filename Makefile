@@ -667,9 +667,18 @@ KBUILD_CFLAGS += $(call cc-disable-warning, address-of-packed-member)
 KBUILD_CFLAGS	+= $(call cc-disable-warning, void-pointer-to-enum-cast)
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
-KBUILD_CFLAGS  += -O3
+KBUILD_CFLAGS	+= -O3
 else
 KBUILD_CFLAGS	+= -O2
+endif
+
+ifeq ($(cc-name),gcc)
+KBUILD_CFLAGS	+= -march=armv8-a+crc+crypto -mtune=cortex-a73.cortex-a53
+KBUILD_AFLAGS	+= -march=armv8-a+crc+crypto -mtune=cortex-a73.cortex-a53
+endif
+ifeq ($(cc-name),clang)
+KBUILD_CFLAGS	+= -march=armv8-a+crc+crypto -mtune=cortex-a53
+KBUILD_AFLAGS	+= -march=armv8-a+crc+crypto -mtune=cortex-a53
 endif
 
 ifdef CONFIG_CC_WERROR
