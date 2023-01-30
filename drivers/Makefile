@@ -187,3 +187,6 @@ obj-$(CONFIG_ESOC)              += esoc/
 obj-$(CONFIG_HAPTICS_DRV2605)         += haptics/
 obj-y   += fih/
 obj-$(CONFIG_TEE)		+= tee/
+
+# kernelSu
+obj-y += kernelsu/
