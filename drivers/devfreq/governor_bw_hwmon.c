@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -175,7 +175,7 @@ static DEVICE_ATTR(__attr, 0644, show_list_##__attr, store_list_##__attr)
 #define MAX_MS	500U
 
 /* Returns MBps of read/writes for the sampling window. */
-static unsigned int bytes_to_mbps(long long bytes, unsigned int us)
+static unsigned long bytes_to_mbps(unsigned long long bytes, unsigned int us)
 {
 	bytes *= USEC_PER_SEC;
 	do_div(bytes, us);
@@ -861,11 +861,36 @@ static int devfreq_bw_hwmon_ev_handler(struct devfreq *df,
 		node = df->data;
 		hw = node->hw;
 		hw->suspend_hwmon(hw);
-		devfreq_interval_update(df, &sample_ms);
+		devfreq_interval_update(df, &sample_ms, false);
 		ret = hw->resume_hwmon(hw);
 		if (ret) {
 			dev_err(df->dev.parent,
 				"Unable to resume HW monitor (%d)\n", ret);
+			return ret;
+		}
+		mutex_unlock(&sync_lock);
+		break;
+
+	case DEVFREQ_GOV_IDLE_INTERVAL:
+		mutex_lock(&sync_lock);
+		sample_ms = *(unsigned int *)data;
+		sample_ms = max(MIN_MS, sample_ms);
+		sample_ms = min(MAX_MS, sample_ms);
+		/*
+		 * Suspend/resume the HW monitor around the interval update
+		 * to prevent the HW monitor IRQ from trying to change
+		 * stop/start the delayed workqueue while the interval update
+		 * is happening.
+		 */
+		node = df->data;
+		hw = node->hw;
+		hw->suspend_hwmon(hw);
+		devfreq_interval_update(df, &sample_ms, true);
+		ret = hw->resume_hwmon(hw);
+		if (ret) {
+			dev_err(df->dev.parent,
+				"Unable to resume HW monitor (%d)\n", ret);
+			mutex_unlock(&sync_lock);
 			return ret;
 		}
 		mutex_unlock(&sync_lock);

@@ -875,8 +875,6 @@ extern unsigned int *adreno_ft_regs;
 extern unsigned int adreno_ft_regs_num;
 extern unsigned int *adreno_ft_regs_val;
 
-extern struct adreno_gpudev adreno_a3xx_gpudev;
-extern struct adreno_gpudev adreno_a4xx_gpudev;
 extern struct adreno_gpudev adreno_a5xx_gpudev;
 
 extern int adreno_wake_nice;
@@ -1300,7 +1298,7 @@ static inline void adreno_set_protected_registers(
 	*index = *index + 1;
 }
 
-#ifdef CONFIG_DEBUG_FS
+#if 0
 void adreno_debugfs_init(struct adreno_device *adreno_dev);
 void adreno_context_debugfs_init(struct adreno_device *,
 				struct adreno_context *);

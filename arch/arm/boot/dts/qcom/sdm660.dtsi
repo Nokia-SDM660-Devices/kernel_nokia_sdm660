@@ -48,10 +48,12 @@
 
 		CPU0: cpu@0 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x0>;
+			clock-frequency = <1612800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile0>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea0>;
 			efficiency = <1024>;
@@ -77,10 +79,12 @@
 
 		CPU1: cpu@1 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x1>;
+			clock-frequency = <1612800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile0>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea1>;
 			efficiency = <1024>;
@@ -100,10 +104,12 @@
 
 		CPU2: cpu@2 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x2>;
+			clock-frequency = <1612800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile0>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea2>;
 			efficiency = <1024>;
@@ -123,10 +129,12 @@
 
 		CPU3: cpu@3 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x3>;
+			clock-frequency = <1612800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile0>;
+			sched-energy-costs = <&CPU_COST_0 &CLUSTER_COST_0>;
 			qcom,lmh-dcvs = <&lmh_dcvs0>;
 			qcom,ea = <&ea3>;
 			efficiency = <1024>;
@@ -146,10 +154,12 @@
 
 		CPU4: cpu@100 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x100>;
+			clock-frequency = <1612800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile1>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea4>;
 			efficiency = <1638>;
@@ -173,10 +183,12 @@
 
 		CPU5: cpu@101 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x101>;
+			clock-frequency = <1804800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile2>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea5>;
 			efficiency = <1638>;
@@ -196,10 +208,12 @@
 
 		CPU6: cpu@102 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x102>;
+			clock-frequency = <1804800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile3>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea6>;
 			efficiency = <1638>;
@@ -219,10 +233,12 @@
 
 		CPU7: cpu@103 {
 			device_type = "cpu";
-			compatible = "arm,armv8";
+			compatible = "arm,kryo";
 			reg = <0x0 0x103>;
+			clock-frequency = <1804800000>;
 			enable-method = "psci";
 			qcom,limits-info = <&mitigation_profile4>;
+			sched-energy-costs = <&CPU_COST_1 &CLUSTER_COST_1>;
 			qcom,lmh-dcvs = <&lmh_dcvs1>;
 			qcom,ea = <&ea7>;
 			efficiency = <1638>;
@@ -276,6 +292,74 @@
 					cpu = <&CPU7>;
 				};
 			};
+		};
+	};
+
+	energy_costs: energy-costs {
+		compatible = "sched-energy";
+
+		CPU_COST_0: core-cost0 {
+			busy-cost-data = <
+				633600	41
+				902400	70
+				1113600	83
+				1401600	146
+				1536000	158
+				1612800 183
+				1747200	228
+				1843200	285
+			>;
+			idle-cost-data = <
+				20 16 10 8
+			>;
+		};
+
+		CPU_COST_1: core-cost1 {
+			busy-cost-data = <
+				1113600	307
+				1401600	485
+				1747200	857
+				1804800	883
+				1958400	1222
+				2150400	1592
+				2208000	1632
+				2457600	2080
+			>;
+			idle-cost-data = <
+				100 80 60 40
+			>;
+		};
+
+		CLUSTER_COST_0: cluster-cost0 {
+			busy-cost-data = <
+				633600	4
+				902400	5
+				1113600	7
+				1401600	9
+				1536000	9
+				1612800 10
+				1747200	11
+				1843200	13
+			>;
+			idle-cost-data = <
+				4 3 2 1
+			>;
+		};
+
+		CLUSTER_COST_1: cluster-cost1 {
+			busy-cost-data = <
+				1113600	14
+				1401600	17
+				1747200	25
+				1804800	31
+				1958400	31
+				2150400	37
+				2208000	44
+				2457600	45
+			>;
+			idle-cost-data = <
+				4 3 2 1
+			>;
 		};
 	};
 
@@ -399,7 +483,7 @@
 			alloc-ranges = <0 0x00000000 0 0xffffffff>;
 			reusable;
 			alignment = <0 0x400000>;
-			size = <0 0x2c00000>;
+			size = <0 0x8000000>;
 			linux,cma-default;
 		};
 
@@ -892,8 +976,9 @@
 	qcom,msm-core@780000 {
 		compatible = "qcom,apss-core-ea";
 		reg = <0x780000 0x1000>;
-		qcom,low-hyst-temp = <100>;
-		qcom,high-hyst-temp = <100>;
+		qcom,low-hyst-temp = <10>;
+		qcom,high-hyst-temp = <5>;
+		qcom,polling-interval = <100>;
 
 		ea0: ea0 {
 			sensor = <&sensor_information1>;
@@ -1253,6 +1338,16 @@
 				< 2150400 3879 >,
 				< 2457600 6881 >;
 		};
+	};
+
+	devfreq_compute: qcom,devfreq-compute {
+		compatible = "qcom,arm-cpu-mon";
+		qcom,cpulist = <&CPU0 &CPU1 &CPU2 &CPU3>;
+		qcom,target-dev = <&mincpubw>;
+		qcom,core-dev-table =
+                        < 902400 762 >,
+                        < 1401600 2086 >,
+                        < 1881600 3879 >;
 	};
 
 	clock_cpu: qcom,clk-cpu-660@179c0000 {
