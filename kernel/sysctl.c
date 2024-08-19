@@ -139,6 +139,9 @@ static int two_hundred = 200;
 #ifdef CONFIG_PRINTK
 static int ten_thousand = 10000;
 #endif
+#ifdef CONFIG_PERF_EVENTS
+static int six_hundred_forty_kb = 640 * 1024;
+#endif
 
 /* this is needed for the proc_doulongvec_minmax of vm_dirty_bytes */
 static unsigned long dirty_bytes_min = 2 * PAGE_SIZE;
