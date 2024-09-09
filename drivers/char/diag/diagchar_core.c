@@ -3638,7 +3638,7 @@ struct miscdevice diagtest = {
        .fops = &diagsmdfops,
 };
 
-void diag_ws_init()
+void diag_ws_init(void)
 {
 	driver->dci_ws.ref_count = 0;
 	driver->dci_ws.copy_count = 0;
