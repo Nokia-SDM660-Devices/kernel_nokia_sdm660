@@ -93,7 +93,6 @@
 		qcom,mdss-dsi-reset-sequence = <1 5>, <0 5>, <1 100>;
 
 		/*Add by ZZDC sunqiupeng for esd check START*/
-		qcom,esd-check-enabled;
 		qcom,mdss-dsi-panel-status-command = [06 01 00 01 00 00 01 0A];
 		qcom,mdss-dsi-panel-status-command-state = "dsi_hs_mode";
 		qcom,mdss-dsi-panel-status-value = <0x1C>;
