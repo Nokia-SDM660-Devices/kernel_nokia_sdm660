@@ -251,7 +251,7 @@ int smblib_get_usb_suspend(struct smb_charger *chg, int *suspend)
 }
 
 struct apsd_result {
-	const char * name;
+	const char * const name;
 	const u8 bit;
 	const enum power_supply_type pst;
 };
