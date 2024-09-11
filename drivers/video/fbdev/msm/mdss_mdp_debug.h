@@ -83,8 +83,8 @@ static inline const char *mdss_mdp_format2str(u32 format)
 void mdss_mdp_dump(struct mdss_data_type *mdata);
 void mdss_mdp_hw_rev_debug_caps_init(struct mdss_data_type *mdata);
 
-
-#ifdef CONFIG_DEBUG_FS
+// "CONFIG_DEBUG_FS" replaced with "CONFIG_FB_MSM_MDSS" - kinda dirty heck
+#ifdef CONFIG_FB_MSM_MDSS
 int mdss_mdp_debugfs_init(struct mdss_data_type *mdata);
 #else
 static inline int mdss_mdp_debugfs_init(struct mdss_data_type *mdata)
