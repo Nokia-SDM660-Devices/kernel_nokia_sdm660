@@ -122,3 +122,8 @@ android/configs/android-*.cfg
 KERNEL_BUILDS/
 out/
 toolchains/
+AnyKernel3/
+build.log
+clang/
+gcc/
+gcc32/
